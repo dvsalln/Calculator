@@ -114,8 +114,7 @@ function pickOperator() {
         op = $(this).attr('value');
         if(op === 'plus')
         {
-            isAdd = true;
-            pickSecNum();
+    
             $('#operator').html(op);
             isAdd = true;
             pickSecNum();
@@ -130,6 +129,7 @@ function pickSecNum() {
     {
         secondNum = $(this).attr('value');
         secondNumResult += secondNum;
+
         $('#second-number').html(secondNumResult);
         if(isFirstNum === false) {
 
@@ -146,7 +146,7 @@ function pickSecNum() {
 function totalResult() {
     $('.equals').on('click', function() {
 
-        $('#result').html(total);
+        $('##result').html(total);
     });
 }
 
