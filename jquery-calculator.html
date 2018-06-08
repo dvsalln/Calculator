@@ -76,7 +76,84 @@ $(document).ready(function() {
 
 // Your code here...
 
+// First Number
+var firstNum = 0;
+var firstNumResult = "";
+var isFirstNum = true;
 
+//Operator
+var op;
+var isOp = true;
+
+// Second Number
+var secondNum = 0;
+var secondNumResult = "";
+var isSecondNum = true;
+
+// Total
+var total = 0;
+var isTotal = true;
+
+//Pick First number
+function pickFirstNum() {
+    $('.number').on('click', function(){
+        if(isFirstNum)
+        {
+            firstNum = $(this).attr('value');
+            firstNumResult += firstNum;
+            //Testing
+            $('#first-number').html(firstNumResult);
+        }
+    });
+}
+
+//Picks operator
+function pickOperator() {
+    $('.operator').on('click', function() {
+        isFirstNum = false;
+        op = $(this).attr('value');
+        if(op === 'plus')
+        {
+            isAdd = true;
+            pickSecNum();
+            $('#operator').html(op);
+            isAdd = true;
+            pickSecNum();
+            
+        }
+    });
+}
+
+//Picks 2nd Number
+function pickSecNum() {
+    $('.number').on('click', function()
+    {
+        secondNum = $(this).attr('value');
+        secondNumResult += secondNum;
+        $('#second-number').html(secondNumResult);
+        if(isFirstNum === false) {
+
+            if(isAdd = true)
+            {
+                total = parseInt(firstNumResult) + parseInt(secondNumResult);
+                
+            }
+        }
+    });
+}
+
+//Total Result
+function totalResult() {
+    $('.equals').on('click', function() {
+
+        $('#result').html(total);
+    });
+}
+
+
+pickFirstNum();
+pickOperator();
+totalResult();
 });
 
 </script>
