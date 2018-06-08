@@ -74,7 +74,11 @@
 
 $(document).ready(function() {
 
-// Your code here...
+// Your code here.
+var isAdd = false;
+var isMinus = false;
+var isTimes = false;
+var isDivide = false;
 
 // First Number
 var firstNum = 0;
@@ -120,6 +124,24 @@ function pickOperator() {
             pickSecNum();
             
         }
+        else if(op === 'minus')
+        {
+            $('#operator').html(op);
+            isMinus = true;
+            pickSecNum();
+        }
+        else if(op === 'times')
+        {
+            $('#operator').html(op);
+            isTimes = true;
+            pickSecNum();
+        }
+        else if(op === 'divide')
+        {
+            $('#operator').html(op);
+            isDivide = true;
+            pickSecNum();
+        }
     });
 }
 
@@ -133,13 +155,21 @@ function pickSecNum() {
         $('#second-number').html(secondNumResult);
         if(isFirstNum === false) {
 
-            if(isAdd = true)
+            if(isAdd === true)
             {
                 total = parseInt(firstNumResult) + parseInt(secondNumResult);
-                
+            }
+            else if(isMinus === true) {
+                total = parseInt(firstNumResult) - parseInt(secondNumResult);
+            }
+            else if(isTimes === true) {
+                total = parseInt(firstNumResult) * parseInt(secondNumResult);
+            }
+            else if(isDivide === true) {
+                total = parseInt(firstNumResult) / parseInt(secondNumResult);
             }
         }
-    });
+    }); 
 }
 
 //Total Result
@@ -147,6 +177,13 @@ function totalResult() {
     $('.equal').on('click', function() {
 
         $('#result').html(total);
+    });
+}
+
+// Clear
+function clearResult() {
+    $('.clear').on('click', function() {
+        $('#result').html(clearNum);
     });
 }
 
