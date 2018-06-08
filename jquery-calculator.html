@@ -74,128 +74,80 @@
 
 $(document).ready(function() {
 
-// Your code here.
-var isAdd = false;
-var isMinus = false;
-var isTimes = false;
-var isDivide = false;
+  // start off with global variables at run time for our application
 
-// First Number
-var firstNum = 0;
-var firstNumResult = "";
-var isFirstNum = true;
+  var firstNumber = 0;
+  var secondNumber = 0;
+  var operator = "";
+  var result = 0;
+  var isOperatorChosen = false;
+  var isCalculated = false;
 
-//Operator
-var op = "";
-var isOp = true;
-
-// Second Number
-var secondNum = 0;
-var secondNumResult = "";
-var isSecondNum = true;
-
-// Total
-var total = 0;
-var isTotal = true;
-
-//Pick First number
-function pickFirstNum() {
-    $('.number').on('click', function(){
-        if(isFirstNum)
-        {
-            firstNum = $(this).attr('value');
-            firstNumResult += firstNum;
-            //Testing
-            $('#first-number').html(firstNumResult);
-        }
-    });
-}
-
-//Picks operator
-function pickOperator() {
-    $('.operator').on('click', function() {
-        isFirstNum = false;
-        op = $(this).attr('value');
-
-        if(op === 'plus')
-        {
+  function initializeCalculator() {
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+    isOperatorChosen = false;
+    isCalculated = false;
     
-            $('#operator').html(op);
-            isAdd = true;
-            pickSecNum();
-            
-        }
-        else if(op === 'minus')
-        {
-            $('#operator').html(op);
-            isMinus = true;
-            pickSecNum();
-        }
-        else if(op === 'times')
-        {
-            $('#operator').html(op);
-            isTimes = true;
-            pickSecNum();
-        }
-        else if(op === 'divide')
-        {
-            $('#operator').html(op);
-            isDivide = true;
-            pickSecNum();
-        }
-    });
-}
+    $("#first-number, #second-number, #operator, #result").empty();
+  }
+    $(".number").on("click", function() {
+      if (isCalculated) {
+        return false;
+      }
+      console.log('this.value (╯°□°)╯︵ ┻━┻ ', this.value)
 
-//Picks 2nd Number
-function pickSecNum() {
-    $('.number').on('click', function()
-    {
-        secondNum = $(this).attr('value');
-        secondNumResult += secondNum;
+      if (isOperatorChosen) {
+        secondNumber += $(this).val();
+        $("#second-number").text(secondNumber);
+      }
 
-        $('#second-number').html(secondNumResult);
-        if(isFirstNum === false) {
+      else {
+        firstNumber += $(this).val();
+        $("#first-number").text(firstNumber);
+      }
+    })
 
-            if(isAdd === true)
-            {
-                total = parseInt(firstNumResult) + parseInt(secondNumResult);
-            }
-            else if(isMinus === true) {
-                total = parseInt(firstNumResult) - parseInt(secondNumResult);
-            }
-            else if(isTimes === true) {
-                total = parseInt(firstNumResult) * parseInt(secondNumResult);
-            }
-            else if(isDivide === true) {
-                total = parseInt(firstNumResult) / parseInt(secondNumResult);
-            }
-        }
-    }); 
-}
+    $(".operator").on("click", function() {
+      // check if a first number has already been selected
+      // or we've already run a calculation, if so exit
 
-//Total Result
-function totalResult() {
-    $('.equal').on('click', function() {
+      if (!firstNumber || isCalculated) {
+        return false;
+      }
+      isOperatorChosen = true;
+      operator = $(this).val();
 
-        $('#result').html(total);
-    });
-};
+      $("#operator").text($(this).text());
+    })
+    $(".equal").on("click", function() {
+      if (isCalculated) {
+        return false;
+      }
+      isCalculated = true;
 
-//clehtml""
-    $('.clear').click(function() {
-        $('#first-number').html("");
-        $('#operator').html("");
-        $('#second-number').html("");
-        $('#result').html("");
-    });
+      firstNumber = parseInt(firstNumber);
+      secondNumber = parseInt(secondNumber);
 
+      if( operator === "plus") {
+        result = firstNumber + secondNumber;
+      } else if (operator === "minus") {
+        result = firstNumber -secondNumber
+      } else if (operator === "divide") {
+        result = firstNumber / secondNumber;
+      } else if (operator === "power") {
+        result = Math.pow(firstNumber, secondNumber);
+      }
 
-pickFirstNum();
-pickOperator();
-totalResult();
+      $("#result").text(result);
 
-});
-
+    })
+    $(".clear").on("click", function() {
+      initializeCalculator()
+    })
+    initializeCalculator();
+  })
 </script>
 
 </body>
