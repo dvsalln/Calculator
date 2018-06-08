@@ -86,7 +86,7 @@ var firstNumResult = "";
 var isFirstNum = true;
 
 //Operator
-var op;
+var op = "";
 var isOp = true;
 
 // Second Number
@@ -116,6 +116,7 @@ function pickOperator() {
     $('.operator').on('click', function() {
         isFirstNum = false;
         op = $(this).attr('value');
+
         if(op === 'plus')
         {
     
@@ -178,19 +179,21 @@ function totalResult() {
 
         $('#result').html(total);
     });
-}
+};
 
-// Clear
-function clearResult() {
-    $('.clear').on('click', function() {
-        $('#result').html(clearNum);
+//clehtml""
+    $('.clear').click(function() {
+        $('#first-number').html("");
+        $('#operator').html("");
+        $('#second-number').html("");
+        $('#result').html("");
     });
-}
 
 
 pickFirstNum();
 pickOperator();
 totalResult();
+
 });
 
 </script>
